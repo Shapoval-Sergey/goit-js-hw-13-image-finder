@@ -1,6 +1,6 @@
 const refs = {
-  input: document.querySelector('#js-input'),
-  list: document.querySelector('.list-countries'),
+  form: document.querySelector('.search-form'),
+  list: document.querySelector('.gallery'),
 };
 
 export default refs;

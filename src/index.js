@@ -1,17 +1,32 @@
-import debounce from 'lodash.debounce';
-import fetchCountries from './js/fetchCountries';
-import updateCountriesMarkup from './js/update-countries-markup';
+import appService from './js/apiService';
+import updateImagesMarkup from './js/update-images-markup';
 import refs from './js/refs';
-import './js/notifications';
+// import './js/notifications';
 import './styles.css';
 
-const debounceInputHandler = debounce(event => {
-  const inputValue = event.target.value;
-  refs.list.innerHTML = '';
-  if (!inputValue) {
-    return;
-  }
-  fetchCountries(inputValue).then(updateCountriesMarkup);
-}, 500);
+function searchFormSubmitHandler(event) {
+  event.preventDefault();
 
-refs.input.addEventListener('input', debounceInputHandler);
+  const form = event.currentTarget;
+  appService.query = form.elements.query.value;
+  clearArticlesContainer();
+  appService.resetPage();
+  fetchItems();
+  form.reset();
+}
+
+function fetchItems() {
+  // loadMoreBtn.disable();
+
+  appService.fetchItems().then(data => {
+    updateImagesMarkup(data);
+    // loadMoreBtn.show();
+    // loadMoreBtn.enable();
+  });
+}
+
+function clearArticlesContainer() {
+  refs.list.innerHTML = '';
+}
+
+refs.form.addEventListener('submit', searchFormSubmitHandler);
