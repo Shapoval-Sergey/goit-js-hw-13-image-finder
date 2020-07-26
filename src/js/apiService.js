@@ -1,4 +1,4 @@
-const apiKey = '12880088-5f1634c62e30865f461701c2f';
+const apiKey = '17652619-43f5970367769b93ce55544c4';
 
 export default {
   searchQuery: '',
@@ -9,11 +9,11 @@ export default {
       headers: { Authorization: apiKey },
     };
 
-    return fetch(url, options)
+    return fetch(url)
       .then(res => res.json())
-      .then(data => {
+      .then(({ hits }) => {
         this.incrementPage();
-        return data;
+        return hits;
       });
   },
   resetPage() {
