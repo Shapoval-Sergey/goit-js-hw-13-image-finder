@@ -2,7 +2,7 @@ import appService from './js/apiService';
 import updateImagesMarkup from './js/update-images-markup';
 import refs from './js/refs';
 import LoadMoreBtn from './js/load-more-button';
-// import './js/notifications';
+import successMessage from './js/notifications';
 import './styles.css';
 
 const loadMoreBtn = new LoadMoreBtn({
@@ -27,7 +27,15 @@ function fetchItems() {
   loadMoreBtn.disable();
 
   appService.fetchItems().then(data => {
+    if (data.length <= 12) {
+      loadMoreBtn.disable();
+    }
     updateImagesMarkup(data);
+    successMessage();
+    window.scrollTo({
+      top: document.documentElement.offsetHeight,
+      behavior: 'smooth',
+    });
     loadMoreBtn.show();
     loadMoreBtn.enable();
   });
