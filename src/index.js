@@ -27,17 +27,19 @@ function fetchItems() {
   loadMoreBtn.disable();
 
   appService.fetchItems().then(data => {
-    if (data.length <= 12) {
-      loadMoreBtn.disable();
-    }
     updateImagesMarkup(data);
+    if (data.length < 12) {
+      loadMoreBtn.hide();
+    }
+    if (data.length >= 12) {
+      loadMoreBtn.show();
+      loadMoreBtn.enable();
+    }
     successMessage();
     window.scrollTo({
       top: document.documentElement.offsetHeight,
       behavior: 'smooth',
     });
-    loadMoreBtn.show();
-    loadMoreBtn.enable();
   });
 }
 
