@@ -30,12 +30,12 @@ function fetchItems() {
     updateImagesMarkup(data);
     if (data.length < 12) {
       loadMoreBtn.hide();
-    }
-    if (data.length >= 12) {
+    } else {
       loadMoreBtn.show();
       loadMoreBtn.enable();
+      successMessage();
     }
-    successMessage();
+
     window.scrollTo({
       top: document.documentElement.offsetHeight,
       behavior: 'smooth',
