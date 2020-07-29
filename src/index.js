@@ -1,10 +1,10 @@
 import appService from './js/apiService';
 import updateImagesMarkup from './js/update-images-markup';
-import largeImage from './templates/largeImage.hbs';
 import refs from './js/refs';
 import LoadMoreBtn from './js/load-more-button';
 import successMessage from './js/notifications';
 import * as basicLightbox from 'basiclightbox';
+import 'basiclightbox/src/styles/main.scss';
 import './styles.css';
 
 const loadMoreBtn = new LoadMoreBtn({
