@@ -42,12 +42,12 @@ function fetchItems() {
       data.map(obj => {
         if (event.target.src === obj.webformatURL) {
           modalImage = obj.largeImageURL;
+          const instance = basicLightbox.create(
+            `<img src="${modalImage}" width="800" height="600">`,
+          );
+          instance.show();
         }
       });
-      const instance = basicLightbox.create(
-        `<img src="${modalImage}" width="800" height="600">`,
-      );
-      instance.show();
     }
 
     refs.list.addEventListener('click', modalImageHandler);
