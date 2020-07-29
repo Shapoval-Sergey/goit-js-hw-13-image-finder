@@ -1,8 +1,10 @@
 import appService from './js/apiService';
 import updateImagesMarkup from './js/update-images-markup';
+import largeImage from './templates/largeImage.hbs';
 import refs from './js/refs';
 import LoadMoreBtn from './js/load-more-button';
 import successMessage from './js/notifications';
+import * as basicLightbox from 'basiclightbox';
 import './styles.css';
 
 const loadMoreBtn = new LoadMoreBtn({
@@ -35,7 +37,20 @@ function fetchItems() {
       loadMoreBtn.enable();
       successMessage();
     }
+    function modalImageHandler(event) {
+      let modalImage = null;
+      data.map(obj => {
+        if (event.target.src === obj.webformatURL) {
+          modalImage = obj.largeImageURL;
+        }
+      });
+      const instance = basicLightbox.create(
+        `<img src="${modalImage}" width="800" height="600">`,
+      );
+      instance.show();
+    }
 
+    refs.list.addEventListener('click', modalImageHandler);
     window.scrollTo({
       top: document.documentElement.offsetHeight,
       behavior: 'smooth',
@@ -48,3 +63,5 @@ function clearArticlesContainer() {
 }
 
 refs.form.addEventListener('submit', searchFormSubmitHandler);
+
+// console.log(basicLightbox); currentSrc
